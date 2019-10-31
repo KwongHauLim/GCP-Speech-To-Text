@@ -1,0 +1,15 @@
+﻿<Window x:Class="Speech_To_Text.View.Manual.ManualUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Speech_To_Text.View.Manual"
+        mc:Ignorable="d" Height="100" Width="100" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" 
+        AllowsTransparency="True" Opacity="0.7">
+    <Grid>
+        <Image x:Name="uiMove" Source="/Resources/Images/Move.png" Stretch="Uniform" Margin="0,4,4,0" MouseDown="uiMove_MouseDown"
+               Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Image x:Name="uiMic" MouseDown="uiMic_MouseDown"
+               Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="10"/>
+    </Grid>
+</Window>

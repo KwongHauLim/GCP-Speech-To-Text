@@ -13,6 +13,18 @@
         <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Resources/Mic-enable.ico" >
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Enable">
+                        <MenuItem.Command>
+                            <cmd:VoiceEnable/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem Header="Disable">
+                        <MenuItem.Command>
+                            <cmd:VoiceDisable/>
+                        </MenuItem.Command>
+                    </MenuItem>
+
+                    <Separator/>
                     <MenuItem Header="Setting">
                         <MenuItem.Command>
                             <cmd:SettingOpen/>

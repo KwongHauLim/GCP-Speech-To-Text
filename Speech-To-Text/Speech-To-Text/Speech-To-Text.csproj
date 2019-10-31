@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.96</AssemblyVersion>
-    <FileVersion>1.0.0.96</FileVersion>
+    <AssemblyVersion>1.0.0.101</AssemblyVersion>
+    <FileVersion>1.0.0.101</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>
@@ -29,6 +29,7 @@
     <None Remove="Resources\Images\Home2.png" />
     <None Remove="Resources\Images\Mic-disable.png" />
     <None Remove="Resources\Images\Mic-enable.png" />
+    <None Remove="Resources\Images\Move.png" />
     <None Remove="Resources\Images\Notice-disable.png" />
     <None Remove="Resources\Images\Notice-enable.png" />
     <None Remove="Resources\Images\tick.png" />
@@ -72,6 +73,7 @@
     <Resource Include="Resources\Images\Home2.png" />
     <Resource Include="Resources\Images\Mic-disable.png" />
     <Resource Include="Resources\Images\Mic-enable.png" />
+    <Resource Include="Resources\Images\Move.png" />
     <Resource Include="Resources\Images\Notice-disable.png" />
     <Resource Include="Resources\Images\Notice-enable.png" />
     <Resource Include="Resources\Images\tick.png" />

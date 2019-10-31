@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using HaLi.Tools.Encryption;
 using Newtonsoft.Json;
+using Speech_To_Text.View.Manual;
 
 namespace Speech_To_Text
 {
@@ -14,6 +15,8 @@ namespace Speech_To_Text
 
         private readonly string path = "Setting.json";
         public Setting Setting { get; set; }
+
+        public ManualUI Manual { get; private set; }
 
         private Control()
         {
@@ -45,6 +48,27 @@ namespace Speech_To_Text
             }
             catch 
             {
+            }
+        }
+
+        internal void ManualOpen()
+        {
+            if (Manual == null)
+            {
+                Manual = new ManualUI();
+            }
+
+            var desktop = System.Windows.SystemParameters.WorkArea;
+            Manual.Left = desktop.Width - Manual.Width;
+            Manual.Top = desktop.Bottom - Manual.Height;
+            Manual.Show();
+        }
+
+        internal void ManualClose()
+        {
+            if (Manual != null && Manual.IsVisible)
+            {
+                Manual.Close(); 
             }
         }
     }
