@@ -54,5 +54,11 @@ namespace Speech_To_Text
 
             Console.WriteLine(data.Text);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //clean up notifyicon (would otherwise stay open until application finishes)
+            //NotifyIcon.Dispose();
+        }
     }
 }
