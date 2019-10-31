@@ -8,21 +8,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Speech_To_Text.View.Setting
 {
     /// <summary>
-    /// PopupSetting.xaml 的互動邏輯
+    /// UC_GoogleCredential.xaml 的互動邏輯
     /// </summary>
-    public partial class PopupSetting : Window
+    public partial class UC_GoogleCredential : UserControl
     {
-        public PopupSetting()
+        public UC_GoogleCredential()
         {
             InitializeComponent();
         }
 
-        private void btnGoogleCredential_Click(object sender, RoutedEventArgs e)
+        private void btnJson_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.79</AssemblyVersion>
-    <FileVersion>1.0.0.79</FileVersion>
+    <AssemblyVersion>1.0.0.84</AssemblyVersion>
+    <FileVersion>1.0.0.84</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>
@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.8.3" />
     <PackageReference Include="Google.Apis.Core" Version="1.41.1" />
     <PackageReference Include="Google.Cloud.Language.V1" Version="1.3.0" />
     <PackageReference Include="Google.Cloud.Speech.V1" Version="1.2.0" />

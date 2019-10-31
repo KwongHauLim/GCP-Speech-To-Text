@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Speech_To_Text.View.Setting"
         mc:Ignorable="d"
         Title="Setting" Height="450" Width="400">
-    <Grid>
-        
+    <Grid Margin="5">
+        <local:UC_GoogleCredential/>
     </Grid>
 </Window>
