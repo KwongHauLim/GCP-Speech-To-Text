@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.84</AssemblyVersion>
-    <FileVersion>1.0.0.84</FileVersion>
+    <AssemblyVersion>1.0.0.93</AssemblyVersion>
+    <FileVersion>1.0.0.93</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\Crop.png" />
+    <None Remove="Resources\Images\cross.png" />
     <None Remove="Resources\Images\Dashboard.png" />
     <None Remove="Resources\Images\Filter.png" />
     <None Remove="Resources\Images\Flag.png" />
@@ -30,6 +31,7 @@
     <None Remove="Resources\Images\Mic-enable.png" />
     <None Remove="Resources\Images\Notice-disable.png" />
     <None Remove="Resources\Images\Notice-enable.png" />
+    <None Remove="Resources\Images\tick.png" />
     <None Remove="Resources\Images\Trash.png" />
     <None Remove="Resources\Images\User.png" />
     <None Remove="Resources\Mic-disable.ico" />
@@ -59,6 +61,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Crop.png" />
+    <Resource Include="Resources\Images\cross.png" />
     <Resource Include="Resources\Images\Dashboard.png" />
     <Resource Include="Resources\Images\Filter.png" />
     <Resource Include="Resources\Images\Flag.png" />
@@ -68,6 +71,7 @@
     <Resource Include="Resources\Images\Mic-enable.png" />
     <Resource Include="Resources\Images\Notice-disable.png" />
     <Resource Include="Resources\Images\Notice-enable.png" />
+    <Resource Include="Resources\Images\tick.png" />
     <Resource Include="Resources\Images\Trash.png" />
     <Resource Include="Resources\Images\User.png" />
     <Resource Include="Resources\Mic-disable.ico" />
