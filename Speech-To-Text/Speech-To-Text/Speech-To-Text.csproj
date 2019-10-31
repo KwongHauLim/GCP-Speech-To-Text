@@ -17,4 +17,13 @@
     <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="HaLi.AudioInput">
+      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.AudioInput.dll</HintPath>
+    </Reference>
+    <Reference Include="HaLi.GoogleSpeech">
+      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.GoogleSpeech.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
