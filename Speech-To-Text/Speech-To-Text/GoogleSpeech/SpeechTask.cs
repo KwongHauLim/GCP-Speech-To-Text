@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Cloud.Speech.V1;
 using NAudio.Wave;
-using Speech_To_Text.AudioInput;
+using HaLi.AudioInput;
 using SpeechStream = Google.Cloud.Speech.V1.SpeechClient.StreamingRecognizeStream;
 
 namespace Speech_To_Text.GoogleSpeech

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Speech_To_Text.AudioInput
+namespace HaLi.AudioInput
 {
     public static class SoundInfo
     {

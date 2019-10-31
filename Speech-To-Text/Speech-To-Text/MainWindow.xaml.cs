@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
-using Speech_To_Text.AudioInput;
+using HaLi.AudioInput;
 using Speech_To_Text.GoogleSpeech;
 
 namespace Speech_To_Text

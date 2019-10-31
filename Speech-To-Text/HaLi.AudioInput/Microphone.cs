@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NAudio.Wave;
 
-namespace Speech_To_Text.AudioInput
+namespace HaLi.AudioInput
 {
     public class Microphone
     {
