@@ -5,10 +5,18 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.73</AssemblyVersion>
-    <FileVersion>1.0.0.73</FileVersion>
+    <AssemblyVersion>1.0.0.79</AssemblyVersion>
+    <FileVersion>1.0.0.79</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;0067</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;0067</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
