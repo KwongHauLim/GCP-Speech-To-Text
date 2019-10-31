@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
+using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text.View.Setting
 {
@@ -27,6 +29,21 @@ namespace Speech_To_Text.View.Setting
         {
             InitializeComponent();
         }
+
+        public RecordMode Mode
+        {
+            get
+            {
+                if (uiModeFile.IsChecked.GetValueOrDefault(true))
+                    return RecordMode.File;
+                else if (uiModeStream.IsChecked.GetValueOrDefault(true))
+                    return RecordMode.Stream;
+                else
+                    return RecordMode.None;
+            }
+        }
+
+        public SensitiveMode Senitive { get; set; } = SensitiveMode.High;
 
         private void btnJson_Click(object sender, RoutedEventArgs e)
         {
@@ -54,9 +71,24 @@ namespace Speech_To_Text.View.Setting
                 }
 
                 if (valid != isValid)
-                    uiValid.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/" + (valid? "tick.png": "cross.png")));
+                    uiValid.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/" + (valid ? "tick.png" : "cross.png")));
                 isValid = valid;
             }
+        }
+
+        private void btnSenHigh_Click(object sender, RoutedEventArgs e)
+        {
+            Senitive = SensitiveMode.High;
+        }
+
+        private void btnSenLow_Click(object sender, RoutedEventArgs e)
+        {
+            Senitive = SensitiveMode.Low;
+        }
+
+        private void btnSenMan_Click(object sender, RoutedEventArgs e)
+        {
+            Senitive = SensitiveMode.Manual;
         }
     }
 }

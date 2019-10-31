@@ -15,6 +15,8 @@ namespace Speech_To_Text
         public MainWindow()
         {
             InitializeComponent();
+
+            var ctrl = Control.Share;
         }
 
         private void btnTest_Click(object sender, RoutedEventArgs e)

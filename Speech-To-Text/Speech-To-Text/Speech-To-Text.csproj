@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.93</AssemblyVersion>
-    <FileVersion>1.0.0.93</FileVersion>
+    <AssemblyVersion>1.0.0.96</AssemblyVersion>
+    <FileVersion>1.0.0.96</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>
@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="HaLi.GoogleSpeech">
       <HintPath>..\..\Libs\netcoreapp3.0\HaLi.GoogleSpeech.dll</HintPath>
+    </Reference>
+    <Reference Include="HaLi.Tools.Encryption">
+      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.Tools.Encryption.dll</HintPath>
     </Reference>
     <Reference Include="NotifyIconWpf">
       <HintPath>..\..\Libs\netcoreapp3.0\NotifyIconWpf.dll</HintPath>

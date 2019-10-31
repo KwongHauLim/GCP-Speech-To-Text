@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Speech_To_Text.View.Setting"
         mc:Ignorable="d"
-        Title="Setting" Height="450" Width="400" Icon="/Speech-To-Text;component/Resources/Images/Home.png">
+        Title="Setting" Height="450" Width="400" Icon="/Speech-To-Text;component/Resources/Images/Home.png"
+        Closing="Window_Closing">
     <Grid Margin="5">
-        <local:UC_GoogleCredential/>
+        <local:UC_GoogleCredential x:Name="ucGoogle"/>
     </Grid>
 </Window>

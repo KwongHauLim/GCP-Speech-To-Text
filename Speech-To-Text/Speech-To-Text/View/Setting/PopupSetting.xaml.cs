@@ -22,9 +22,14 @@ namespace Speech_To_Text.View.Setting
             InitializeComponent();
         }
 
-        private void btnGoogleCredential_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            var ctrl = Control.Share;
+            var setting = ctrl.Setting;
+            setting.Speech.Credential = ucGoogle.uiJson.Text;
+            setting.Speech.Mode = ucGoogle.Mode;
+            setting.Speech.Sensitive = ucGoogle.Senitive;
+            ctrl.SaveSetting();
         }
     }
 }
