@@ -1,24 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>Speech_To_Text</RootNamespace>
-    <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.61</AssemblyVersion>
-    <FileVersion>1.0.0.61</FileVersion>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Core" Version="1.41.1" />
     <PackageReference Include="Google.Cloud.Language.V1" Version="1.3.0" />
     <PackageReference Include="Google.Cloud.Speech.V1" Version="1.2.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
     <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HaLi.GoogleSpeech\HaLi.GoogleSpeech.csproj" />
+    <ProjectReference Include="..\HaLi.AudioInput\HaLi.AudioInput.csproj" />
   </ItemGroup>
 
 </Project>

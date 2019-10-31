@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Speech_To_Text.GoogleSpeech
+namespace HaLi.GoogleSpeech
 {
     public class SpeechData
     {

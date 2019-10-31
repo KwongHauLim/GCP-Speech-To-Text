@@ -9,7 +9,7 @@ using NAudio.Wave;
 using HaLi.AudioInput;
 using SpeechStream = Google.Cloud.Speech.V1.SpeechClient.StreamingRecognizeStream;
 
-namespace Speech_To_Text.GoogleSpeech
+namespace HaLi.GoogleSpeech
 {
     public class SpeechTask
     {

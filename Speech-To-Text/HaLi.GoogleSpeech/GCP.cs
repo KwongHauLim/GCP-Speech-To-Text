@@ -5,7 +5,7 @@ using Google.Cloud.Speech.V1;
 using Grpc.Auth;
 using Grpc.Core;
 
-namespace Speech_To_Text.GoogleSpeech
+namespace HaLi.GoogleSpeech
 {
     public sealed class GCP
     {

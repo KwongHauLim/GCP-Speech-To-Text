@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
 using HaLi.AudioInput;
-using Speech_To_Text.GoogleSpeech;
+using HaLi.GoogleSpeech;
 
 namespace Speech_To_Text
 {
