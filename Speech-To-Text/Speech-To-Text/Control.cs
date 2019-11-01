@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using HaLi.AudioInput;
+using HaLi.GoogleSpeech;
 using HaLi.Tools.Encryption;
 using Newtonsoft.Json;
 using Speech_To_Text.View.Manual;
+using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
+using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text
 {
@@ -17,6 +22,8 @@ namespace Speech_To_Text
         public Setting Setting { get; set; }
 
         public ManualUI Manual { get; private set; }
+        public SpeechTask Speech { get; private set; }
+        public Task<SpeechData> Task { get; private set; }
 
         private Control()
         {
@@ -51,7 +58,7 @@ namespace Speech_To_Text
             }
         }
 
-        internal void ManualOpen()
+        public void ManualOpen()
         {
             if (Manual == null)
             {
@@ -64,11 +71,31 @@ namespace Speech_To_Text
             Manual.Show();
         }
 
-        internal void ManualClose()
+        public void ManualClose()
         {
             if (Manual != null && Manual.IsVisible)
             {
                 Manual.Close(); 
+            }
+        }
+
+        public void StartVoice()
+        {
+            Speech = new SpeechTask();
+            Speech.Language = "en";
+
+            if (Setting.Speech.Mode == RecordMode.File)
+                Task = Speech.StartRecord(0);
+            else if (Setting.Speech.Mode == RecordMode.Stream)
+                Task = Speech.StartStream();
+        }
+
+        public void StopVoice()
+        {
+            if (Speech != null && Task != null)
+            {
+                Microphone.StopRecording();
+                var data = Task.Result;
             }
         }
     }

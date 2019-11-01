@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -30,15 +32,26 @@ namespace Speech_To_Text.View.Manual
                 this.DragMove();
         }
 
-        private void uiMic_MouseDown(object sender, MouseButtonEventArgs e)
+        private void uiMic_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 IsPressed = true;
             }
-            else if (IsPressed)
+        }
+
+        private void uiMic_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Released && IsPressed)
             {
                 IsPressed = false;
+
+                //Task.Run(() =>
+                //{
+                //    Thread.Sleep(2000);
+                //    var input = new WindowsInput.InputSimulator();
+                //    input.Keyboard.TextEntry("Hello");
+                //});
             }
         }
     }

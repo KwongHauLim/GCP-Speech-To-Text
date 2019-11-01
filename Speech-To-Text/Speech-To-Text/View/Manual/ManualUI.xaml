@@ -7,9 +7,28 @@
         mc:Ignorable="d" Height="100" Width="100" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" 
         AllowsTransparency="True" Opacity="0.7">
     <Grid>
-        <Image x:Name="uiMove" Source="/Resources/Images/Move.png" Stretch="Uniform" Margin="0,4,4,0" MouseDown="uiMove_MouseDown"
+        <Canvas>
+            <Ellipse
+                Width="60"
+                Height="60"
+                Stroke="#FF84BFE6"
+                StrokeThickness="4"
+                Canvas.Left="20"
+                Canvas.Top="11" RenderTransformOrigin="0.5,0.5" >
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Canvas>
+        <Image x:Name="uiMove" Source="/Resources/Images/Move.png" Stretch="Uniform" Margin="0,4,4,0" 
+               Cursor="SizeAll" MouseDown="uiMove_MouseDown"
                Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <Image x:Name="uiMic" MouseDown="uiMic_MouseDown"
+        <Image x:Name="uiMic" Cursor="Hand" MouseLeftButtonDown="uiMic_MouseLeftButtonDown" MouseLeftButtonUp="uiMic_MouseLeftButtonUp"
                Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="10"/>
     </Grid>
 </Window>
