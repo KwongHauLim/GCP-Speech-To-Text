@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Interop;
 using HaLi.AudioInput;
 using HaLi.Tools.Encryption;
 using Newtonsoft.Json;
@@ -14,6 +17,16 @@ namespace Speech_To_Text
     {
         private static Control _ptr;
         public static Control Share => _ptr = _ptr ?? new Control();
+
+        private const int WS_EX_NOACTIVATE = 0x08000000;
+        private const int GWL_EXSTYLE = -20;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern int GetWindowLong(IntPtr hwnd, int index);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
+
 
         private readonly string path = "Setting.json";
         public Setting Setting { get; set; }
@@ -192,6 +205,11 @@ namespace Speech_To_Text
             {
                 var desktop = System.Windows.SystemParameters.WorkArea;
                 Manual = new ManualUI();
+                Manual.SourceInitialized += (s, e) => {
+                    var interopHelper = new WindowInteropHelper(Manual);
+                    int exStyle = GetWindowLong(interopHelper.Handle, GWL_EXSTYLE);
+                    SetWindowLong(interopHelper.Handle, GWL_EXSTYLE, exStyle | WS_EX_NOACTIVATE);
+                };
                 Manual.Show();
                 Manual.Left = desktop.Width - Manual.Width;
                 Manual.Top = desktop.Bottom - Manual.Height; 
