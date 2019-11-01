@@ -21,6 +21,17 @@ namespace Speech_To_Text.View.Manual
     {
         public bool IsPressed { get; set; }
 
+        /// <summary>
+        /// For scale viusal of volume
+        /// </summary>
+        public double VisualScale
+        {
+            get { return visScale.ScaleX; }
+            set { visScale.ScaleX = visScale.ScaleY = value; }
+        }
+
+
+
         public ManualUI()
         {
             InitializeComponent();

@@ -60,15 +60,11 @@ namespace Speech_To_Text
 
         public void ManualOpen()
         {
-            if (Manual == null)
-            {
-                Manual = new ManualUI();
-            }
-
             var desktop = System.Windows.SystemParameters.WorkArea;
+            Manual = new ManualUI();
+            Manual.Show();
             Manual.Left = desktop.Width - Manual.Width;
             Manual.Top = desktop.Bottom - Manual.Height;
-            Manual.Show();
         }
 
         public void ManualClose()
