@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.146</AssemblyVersion>
-    <FileVersion>1.0.0.146</FileVersion>
+    <AssemblyVersion>1.0.0.148</AssemblyVersion>
+    <FileVersion>1.0.0.148</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>

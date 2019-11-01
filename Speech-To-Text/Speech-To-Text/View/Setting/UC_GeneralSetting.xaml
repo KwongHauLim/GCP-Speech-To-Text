@@ -10,11 +10,21 @@
         <StackPanel>
             <CheckBox x:Name="uiStartEnable" IsChecked="True" Content="啟動時開始" Margin="0,6"/>
 
-            <Label Content="預設識辨語言"/>
-            <ComboBox x:Name="uiLanguage" Width="200" HorizontalAlignment="Left" Margin="0,6"/>
+            <Label Content="預設識辨語言" Margin="0,3,0,0"/>
+            <ComboBox x:Name="uiLanguage" Width="200" HorizontalAlignment="Left" Margin="0,0,0,3"/>
 
-            <CheckBox x:Name="uiKeepWav" IsChecked="True" Content="保留識辨片段" Margin="0,6"/>
-            <CheckBox x:Name="uiDelLeave" IsChecked="True" Content="離開時刪除識辨片段" Margin="0,6"/>
+            <WrapPanel>
+                <Label Content="過濾語音時間長度低於" Margin="0,3"/>
+                <TextBox x:Name="uiFilterBelow" Text="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30"/>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="語音時間長度上限" Margin="0,3"/>
+                <TextBox x:Name="uiMaxLength" Text="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30"/>
+            </WrapPanel>
+            
+            <CheckBox x:Name="uiKeepWav" IsChecked="True" Content="保留識辨片段" Margin="0,3"/>
+            <CheckBox x:Name="uiDelLeave" IsChecked="True" Content="離開時刪除識辨片段" Margin="0,3"/>
         </StackPanel>
     </Grid>
 </UserControl>

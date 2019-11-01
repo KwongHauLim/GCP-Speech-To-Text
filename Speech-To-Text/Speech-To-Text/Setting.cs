@@ -9,6 +9,9 @@ namespace Speech_To_Text
         public bool EnableWhenStart { get; set; } = true;
         public string DefaultLanguage { get; set; } = "en";
 
+        public double MinLength { get; set; } = 0.0;
+        public double MaxLength { get; set; } = 60.0;
+
         public bool KeepWavFile { get; set; } = true;
         public bool DeleteWhenExit { get; set; } = true;
 
