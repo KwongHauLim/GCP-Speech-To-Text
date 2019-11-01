@@ -41,9 +41,25 @@ namespace Speech_To_Text.View.Setting
                 else
                     return RecordMode.None;
             }
+            set
+            {
+                uiModeFile.IsChecked = value == RecordMode.File;
+                uiModeStream.IsChecked = value == RecordMode.Stream;
+            }
         }
 
-        public SensitiveMode Senitive { get; set; } = SensitiveMode.High;
+        private SensitiveMode sensitive = SensitiveMode.High;
+        public SensitiveMode Senitive
+        {
+            get => sensitive;
+            set
+            {
+                sensitive = value;
+                btnSenHigh.Background = value == SensitiveMode.High ? Brushes.PaleGreen : Brushes.White;
+                btnSenLow.Background = value == SensitiveMode.Low ? Brushes.PaleGreen : Brushes.White;
+                btnSenMan.Background = value == SensitiveMode.Manual ? Brushes.PaleGreen : Brushes.White;
+            }
+        }
 
         private void btnJson_Click(object sender, RoutedEventArgs e)
         {
@@ -57,23 +73,27 @@ namespace Speech_To_Text.View.Setting
             if (dialog.ShowDialog().GetValueOrDefault(false))
             {
                 uiJson.Text = dialog.FileName;
-
-                bool valid = false;
-                try
-                {
-                    var json = File.ReadAllText(dialog.FileName);
-                    var jo = JObject.Parse(json);
-                    valid = jo.ContainsKey("private_key");
-                }
-                catch
-                {
-                    valid = false;
-                }
-
-                if (valid != isValid)
-                    uiValid.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/" + (valid ? "tick.png" : "cross.png")));
-                isValid = valid;
+                ValidateJson(dialog.FileName);
             }
+        }
+
+        public void ValidateJson(string path)
+        {
+            bool valid = false;
+            try
+            {
+                var json = File.ReadAllText(path);
+                var jo = JObject.Parse(json);
+                valid = jo.ContainsKey("private_key");
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            if (valid != isValid)
+                uiValid.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/" + (valid ? "tick.png" : "cross.png")));
+            isValid = valid;
         }
 
         private void btnSenHigh_Click(object sender, RoutedEventArgs e)

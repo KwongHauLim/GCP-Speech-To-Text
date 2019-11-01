@@ -18,9 +18,21 @@ namespace Speech_To_Text.View.Setting
     /// </summary>
     public partial class UC_GeneralSetting : UserControl
     {
+        private List<string> CodeList = new List<string>();
+
         public UC_GeneralSetting()
         {
             InitializeComponent();
+
+            CodeList.AddRange(Control.Share.LanguageCodes.Keys);
+            uiLanguage.ItemsSource = Control.Share.LanguageCodes.Values;
+            uiLanguage.SelectedIndex = 0;
         }
+
+        public void SetLanguageCode(string defaultLanguage)
+            => uiLanguage.SelectedIndex = CodeList.IndexOf(defaultLanguage);
+
+        public string GetLanguageCode() 
+            => CodeList[uiLanguage.SelectedIndex];
     }
 }

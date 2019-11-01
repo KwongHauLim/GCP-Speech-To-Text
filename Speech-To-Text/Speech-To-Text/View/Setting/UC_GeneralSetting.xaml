@@ -8,7 +8,13 @@
              d:DesignHeight="400" d:DesignWidth="384">
     <Grid>
         <StackPanel>
-            <CheckBox x:Name="uiStartEnable" IsChecked="True" Content="啟動時開始"/>
+            <CheckBox x:Name="uiStartEnable" IsChecked="True" Content="啟動時開始" Margin="0,6"/>
+
+            <Label Content="預設識辨語言"/>
+            <ComboBox x:Name="uiLanguage" Width="200" HorizontalAlignment="Left" Margin="0,6"/>
+
+            <CheckBox x:Name="uiKeepWav" IsChecked="True" Content="保留識辨片段" Margin="0,6"/>
+            <CheckBox x:Name="uiDelLeave" IsChecked="True" Content="離開時刪除識辨片段" Margin="0,6"/>
         </StackPanel>
     </Grid>
 </UserControl>

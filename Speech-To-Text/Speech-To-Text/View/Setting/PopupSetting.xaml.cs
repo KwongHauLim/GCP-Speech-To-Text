@@ -20,6 +20,17 @@ namespace Speech_To_Text.View.Setting
         public PopupSetting()
         {
             InitializeComponent();
+
+            var ctrl = Control.Share;
+            var setting = ctrl.Setting;
+            ucGeneral.uiStartEnable.IsChecked = setting.EnableWhenStart;
+            ucGeneral.SetLanguageCode(setting.DefaultLanguage);
+            ucGeneral.uiKeepWav.IsChecked = setting.KeepWavFile;
+            ucGeneral.uiDelLeave.IsChecked = setting.DeleteWhenExit;
+            ucGoogle.uiJson.Text = setting.Speech.Credential;
+            ucGoogle.Mode = setting.Speech.Mode;
+            ucGoogle.Senitive = setting.Speech.Sensitive;
+            ucGoogle.ValidateJson(ucGoogle.uiJson.Text);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -27,6 +38,9 @@ namespace Speech_To_Text.View.Setting
             var ctrl = Control.Share;
             var setting = ctrl.Setting;
             setting.EnableWhenStart = ucGeneral.uiStartEnable.IsChecked.GetValueOrDefault(true);
+            setting.DefaultLanguage = ucGeneral.GetLanguageCode();
+            setting.KeepWavFile = ucGeneral.uiKeepWav.IsChecked.GetValueOrDefault(true);
+            setting.DeleteWhenExit = ucGeneral.uiDelLeave.IsChecked.GetValueOrDefault(true);
             setting.Speech.Credential = ucGoogle.uiJson.Text;
             setting.Speech.Mode = ucGoogle.Mode;
             setting.Speech.Sensitive = ucGoogle.Senitive;

@@ -7,6 +7,10 @@ namespace Speech_To_Text
     public class Setting
     {
         public bool EnableWhenStart { get; set; } = true;
+        public string DefaultLanguage { get; set; } = "en";
+
+        public bool KeepWavFile { get; set; } = true;
+        public bool DeleteWhenExit { get; set; } = true;
 
         public class GoogleSpeech
         {
