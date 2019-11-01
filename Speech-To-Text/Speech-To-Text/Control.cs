@@ -60,18 +60,22 @@ namespace Speech_To_Text
 
         public void ManualOpen()
         {
-            var desktop = System.Windows.SystemParameters.WorkArea;
-            Manual = new ManualUI();
-            Manual.Show();
-            Manual.Left = desktop.Width - Manual.Width;
-            Manual.Top = desktop.Bottom - Manual.Height;
+            if (Manual == null)
+            {
+                var desktop = System.Windows.SystemParameters.WorkArea;
+                Manual = new ManualUI();
+                Manual.Show();
+                Manual.Left = desktop.Width - Manual.Width;
+                Manual.Top = desktop.Bottom - Manual.Height; 
+            }
         }
 
         public void ManualClose()
         {
             if (Manual != null && Manual.IsVisible)
             {
-                Manual.Close(); 
+                Manual.Close();
+                Manual = null;
             }
         }
 

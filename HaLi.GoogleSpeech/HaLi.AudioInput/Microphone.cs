@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
 namespace HaLi.AudioInput
@@ -19,6 +20,8 @@ namespace HaLi.AudioInput
         public double Length { get; private set; }
         public float Volume { get; private set; }
         private bool done = false;
+
+        public static float MicVolume => Share.Volume;
 
         public Action<WaveInEventArgs> OnReceive { private get; set; }
 
@@ -49,7 +52,8 @@ namespace HaLi.AudioInput
                         if (sample32 < 0) sample32 = -sample32;
                         // is this the max value?
                         if (sample32 > max) max = sample32;
-                    } 
+                    }
+                    Volume = max;
                 }
 
                 if (OnReceive != null)
