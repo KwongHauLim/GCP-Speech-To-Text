@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Speech_To_Text.View.Setting"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="384">
     <Grid>
@@ -15,12 +16,15 @@
 
             <WrapPanel>
                 <Label Content="過濾語音時間長度低於" Margin="0,3"/>
-                <TextBox x:Name="uiFilterBelow" Text="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30"/>
+                <!--<TextBox x:Name="uiFilterBelow" Text="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30"/>-->
+                <xctk:DoubleUpDown x:Name="uiFilterBelow" DefaultValue="1.0"  Value="1.0" Width="60" TextAlignment="Right"
+                                   Minimum="0" Maximum="60" Increment=".1"/>
             </WrapPanel>
 
             <WrapPanel>
                 <Label Content="語音時間長度上限" Margin="0,3"/>
-                <TextBox x:Name="uiMaxLength" Text="60" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30"/>
+                <xctk:DoubleUpDown x:Name="uiMaxLength" DefaultValue="60.0"  Value="60.0" Width="60" TextAlignment="Right"
+                                   Minimum="0" Maximum="60" Increment=".1"/>
             </WrapPanel>
             
             <CheckBox x:Name="uiKeepWav" IsChecked="True" Content="保留識辨片段" Margin="0,3"/>

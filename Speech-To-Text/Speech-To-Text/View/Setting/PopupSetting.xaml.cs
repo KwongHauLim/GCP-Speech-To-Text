@@ -25,8 +25,8 @@ namespace Speech_To_Text.View.Setting
             var setting = ctrl.Setting;
             ucGeneral.uiStartEnable.IsChecked = setting.EnableWhenStart;
             ucGeneral.SetLanguageCode(setting.DefaultLanguage);
-            ucGeneral.uiFilterBelow.Text = setting.MinLength.ToString("0");
-            ucGeneral.uiMaxLength.Text = setting.MaxLength.ToString("0");
+            ucGeneral.uiFilterBelow.Value = setting.MinLength;
+            ucGeneral.uiMaxLength.Value = setting.MaxLength;
             ucGeneral.uiKeepWav.IsChecked = setting.KeepWavFile;
             ucGeneral.uiDelLeave.IsChecked = setting.DeleteWhenExit;
             ucGoogle.uiJson.Text = setting.Speech.Credential;
@@ -41,8 +41,8 @@ namespace Speech_To_Text.View.Setting
             var setting = ctrl.Setting;
             setting.EnableWhenStart = ucGeneral.uiStartEnable.IsChecked.GetValueOrDefault(true);
             setting.DefaultLanguage = ucGeneral.GetLanguageCode();
-            setting.MinLength = double.Parse(ucGeneral.uiFilterBelow.Text);
-            setting.MaxLength = double.Parse(ucGeneral.uiMaxLength.Text);
+            setting.MinLength = ucGeneral.uiFilterBelow.Value.GetValueOrDefault(0.0);
+            setting.MaxLength = ucGeneral.uiMaxLength.Value.GetValueOrDefault(60.0);
             setting.KeepWavFile = ucGeneral.uiKeepWav.IsChecked.GetValueOrDefault(true);
             setting.DeleteWhenExit = ucGeneral.uiDelLeave.IsChecked.GetValueOrDefault(true);
             setting.Speech.Credential = ucGoogle.uiJson.Text;

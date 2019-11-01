@@ -17,8 +17,12 @@ namespace Speech_To_Text
             Speech.Language = "en";
             Speech.KeepWavFile = $@"R:\Voice{DateTime.Now.ToString("mmss")}.wav";
 
+            var setting = Control.Share.Setting;
+            var min = setting.MinLength;
+            var max = setting.MaxLength;
+
             if (mode == RecordMode.File)
-                Task = Speech.StartRecord(0);
+                Task = Speech.StartRecord(min, max);
             else if (mode == RecordMode.Stream)
                 Task = Speech.StartStream();
         }

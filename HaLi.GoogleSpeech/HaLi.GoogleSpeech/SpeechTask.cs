@@ -50,19 +50,21 @@ namespace HaLi.GoogleSpeech
         /// <summary>
         /// 錄音後, 發到Google轉文字
         /// </summary>
-        public Task<SpeechData> StartRecord(int length)
+        public Task<SpeechData> StartRecord(double minimum, double maximum)
         {
             return Task.Run(() =>
             {
                 Microphone.StartRecording();
 
-                if (length > 0)
+                while (Microphone.IsRecording)
                 {
-                    Thread.Sleep(length);
-                    Microphone.StopRecording();
+                    if (Microphone.Length.CompareTo(maximum) >= 0)
+                        Microphone.StopRecording();
+                    Thread.Sleep(1);
                 }
 
-                while (Microphone.IsRecording) Thread.Sleep(1);
+                if (Microphone.Length.CompareTo(minimum) < 0) 
+                    return null;
 
                 var path = KeepWavFile;
                 if (string.IsNullOrWhiteSpace(path))
