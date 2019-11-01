@@ -7,7 +7,18 @@
         mc:Ignorable="d"
         Title="Setting" Height="450" Width="400" Icon="/Speech-To-Text;component/Resources/Images/Home.png"
         Closing="Window_Closing">
-    <Grid Margin="5">
-        <local:UC_GoogleCredential x:Name="ucGoogle"/>
+    <Grid>
+        <TabControl>
+            <TabItem Header="General">
+                <Grid Margin="5">
+                    <local:UC_GeneralSetting x:Name="ucGeneral"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Google">
+                <Grid Margin="5">
+                    <local:UC_GoogleCredential x:Name="ucGoogle"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

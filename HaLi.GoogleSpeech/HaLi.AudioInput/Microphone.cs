@@ -16,13 +16,11 @@ namespace HaLi.AudioInput
         public WaveFileWriter Writer { get; private set; }
 
         private string tempFile;
-        public bool IsRecording { get; set; }
-        public double Length { get; private set; }
-        public float Volume { get; private set; }
+        public static bool IsRecording { get; set; }
+        public static double Length { get; private set; }
+        public static float Volume { get; private set; }
         private bool done = false;
-
-        public static float MicVolume => Share.Volume;
-
+        
         public Action<WaveInEventArgs> OnReceive { private get; set; }
 
         private Microphone()
@@ -92,9 +90,7 @@ namespace HaLi.AudioInput
                 while (!done) Thread.Sleep(0);
             });
         }
-
-        public static double GetLength() => Share.Length;
-
+        
         public static byte[] GetData()
         {
             return null;

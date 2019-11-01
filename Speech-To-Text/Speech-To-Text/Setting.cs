@@ -6,6 +6,8 @@ namespace Speech_To_Text
 {
     public class Setting
     {
+        public bool EnableWhenStart { get; set; } = true;
+
         public class GoogleSpeech
         {
             public enum RecordMode

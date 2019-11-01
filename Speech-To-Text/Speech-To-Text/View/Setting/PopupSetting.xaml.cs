@@ -26,6 +26,7 @@ namespace Speech_To_Text.View.Setting
         {
             var ctrl = Control.Share;
             var setting = ctrl.Setting;
+            setting.EnableWhenStart = ucGeneral.uiStartEnable.IsChecked.GetValueOrDefault(true);
             setting.Speech.Credential = ucGoogle.uiJson.Text;
             setting.Speech.Mode = ucGoogle.Mode;
             setting.Speech.Sensitive = ucGoogle.Senitive;

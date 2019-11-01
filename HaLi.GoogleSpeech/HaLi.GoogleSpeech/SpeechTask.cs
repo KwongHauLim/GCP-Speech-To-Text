@@ -14,8 +14,8 @@ namespace HaLi.GoogleSpeech
     public class SpeechTask
     {
         public string Language { get; set; } = "en";
-        public bool KeepWavFile { get; set; } = true;
-                
+        public string KeepWavFile { get; set; } = string.Empty;
+
         /// <summary>
         /// 完整音檔, 發到Google轉文字
         /// </summary>
@@ -62,7 +62,16 @@ namespace HaLi.GoogleSpeech
                     Microphone.StopRecording();
                 }
 
-                return FromFile(KeepFile(true));
+                while (Microphone.IsRecording) Thread.Sleep(1);
+
+                var path = KeepWavFile;
+                if (string.IsNullOrWhiteSpace(path))
+                    path = Path.GetTempFileName();
+
+                Microphone.WriteToFile(path);
+                path = Path.ChangeExtension(path, ".wav");
+
+                return FromFile(path);
             });
         }
 
@@ -85,7 +94,7 @@ namespace HaLi.GoogleSpeech
                 };
                 var Streaming = GCP.Share.Client.StreamingRecognize();
                 Streaming.WriteAsync(new StreamingRecognizeRequest { StreamingConfig = StreamingConfig }).Wait();
-                
+
                 Microphone.Share.OnReceive = (args) =>
                 {
                     if (Streaming != null)
@@ -136,24 +145,21 @@ namespace HaLi.GoogleSpeech
 
                 Streaming.WriteCompleteAsync().Wait();
 
+                if (!string.IsNullOrWhiteSpace(KeepWavFile))
+                    Microphone.WriteToFile(KeepWavFile);
+
                 return new SpeechData
                 {
-                    WavFile = KeepFile(KeepWavFile),
-                    Length = TimeSpan.FromSeconds(Microphone.GetLength()),
+                    WavFile = KeepWavFile,
+                    Length = TimeSpan.FromSeconds(Microphone.Length),
                     Text = speechAnaysis.Result
                 };
             });
         }
 
-        private string KeepFile(bool keep)
+        public void StopRecording()
         {
-            if (keep)
-            {
-                string path = @$"R:\voice{DateTime.Now.ToString("mmss")}.wav";
-                Microphone.WriteToFile(path);
-                return path;
-            }
-            return string.Empty;
+            Microphone.StopRecording();
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using HaLi.AudioInput;
+using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
 
 namespace Speech_To_Text.View.Manual
 {
@@ -24,6 +25,8 @@ namespace Speech_To_Text.View.Manual
     public partial class ManualUI : Window
     {
         public bool IsPressed { get; set; }
+
+        private VoiceClip voice;
 
         /// <summary>
         /// For scale viusal of volume
@@ -49,7 +52,7 @@ namespace Speech_To_Text.View.Manual
         {
             if (IsPressed)
             {
-                VisualScale = Lerp(1.0, 1.5, Microphone.MicVolume);
+                VisualScale = Lerp(1.0, 1.5, Microphone.Volume);
             }
             else if (VisualScale.CompareTo(1.0) != 0)
                 VisualScale = 1.0;
@@ -68,8 +71,10 @@ namespace Speech_To_Text.View.Manual
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 IsPressed = true;
-                Microphone.StartRecording();
                 timer.Start();
+
+                voice = new VoiceClip();
+                voice.StartVoice(RecordMode.File);
             }
         }
 
@@ -78,14 +83,13 @@ namespace Speech_To_Text.View.Manual
             if (e.LeftButton == MouseButtonState.Released && IsPressed)
             {
                 IsPressed = false;
-                Microphone.StopRecording();
+                var result = voice.StopVoice();
                 timer.Stop();
-                //Task.Run(() =>
-                //{
-                //    Thread.Sleep(2000);
-                //    var input = new WindowsInput.InputSimulator();
-                //    input.Keyboard.TextEntry("Hello");
-                //});
+
+                if (result != null && !string.IsNullOrWhiteSpace(result.Text))
+                {
+                    Control.InputText(result.Text);
+                }
             }
         }
     }

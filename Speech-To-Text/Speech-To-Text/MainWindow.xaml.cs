@@ -4,6 +4,7 @@ using System.Windows;
 using Microsoft.Win32;
 using HaLi.AudioInput;
 using HaLi.GoogleSpeech;
+using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text
 {
@@ -17,6 +18,11 @@ namespace Speech_To_Text
             InitializeComponent();
 
             var ctrl = Control.Share;
+            var setting = ctrl.Setting;
+            if (setting.EnableWhenStart && setting.Speech.Sensitive == SensitiveMode.Manual)
+            {
+                ctrl.ManualOpen();
+            }
         }
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
@@ -49,7 +55,7 @@ namespace Speech_To_Text
             var task = new SpeechTask
             {
                 Language = language,
-                KeepWavFile = true,
+                KeepWavFile = $@"R:\Voice{DateTime.Now.ToString("mmss")}.wav",
             };
 
             var data = await task.StartRecord(length);

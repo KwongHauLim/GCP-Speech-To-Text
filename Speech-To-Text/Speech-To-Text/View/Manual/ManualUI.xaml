@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Speech_To_Text.View.Manual"
-        mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" 
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Focusable="False"
         AllowsTransparency="True" Opacity="0.7" Width="100" Height="100">
     <Grid x:Name="uiPanel" Height="100" Width="100">
         <Canvas Width="{Binding ActualWidth, ElementName=uiPanel}" Height="{Binding ActualHeight, ElementName=uiPanel}">
@@ -26,6 +26,6 @@
                Cursor="SizeAll" MouseDown="uiMove_MouseDown"
                Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <Image x:Name="uiMic" Cursor="Hand" MouseLeftButtonDown="uiMic_MouseLeftButtonDown" MouseLeftButtonUp="uiMic_MouseLeftButtonUp"
-               Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="20"/>
+               Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="20" Focusable="False"/>
     </Grid>
 </Window>
