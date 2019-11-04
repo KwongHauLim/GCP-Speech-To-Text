@@ -1,0 +1,29 @@
+﻿<Window x:Class="Speech_To_Text.View.Records.ViewRecords"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Speech_To_Text.View.Records"
+        mc:Ignorable="d"
+        Title="ViewRecords" Height="500" Width="400" Icon="/Speech-To-Text;component/Resources/Images/Flag.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="10">
+            <Label Content="Log File:"/>
+            <ComboBox x:Name="uiFiles" SelectionChanged="uiFiles_SelectionChanged"/>
+        </StackPanel>
+        
+        <DataGrid CanUserAddRows="False" x:Name="uiResults" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="uiResults_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="File" Binding="{Binding Key}"/>
+                <DataGridTextColumn Width="*" Header="Google Response" Binding="{Binding Value}"/>
+            </DataGrid.Columns>
+            
+            
+        </DataGrid>
+    </Grid>
+</Window>

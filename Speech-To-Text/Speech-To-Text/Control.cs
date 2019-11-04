@@ -47,6 +47,7 @@ namespace Speech_To_Text
 
         private DirectoryInfo directory;
         public List<string> waitFiles = new List<string>();
+        public Dictionary<string, string> Response = new Dictionary<string, string>();
 
         private Control()
         {
@@ -243,6 +244,7 @@ namespace Speech_To_Text
         public void StartVoice()
         {
             IsRecording = true;
+            Response.Clear();
 
             Task.Run(async () =>
             {
@@ -267,6 +269,9 @@ namespace Speech_To_Text
         public void StopVoice()
         {
             IsRecording = false;
+
+            var logPath = Path.Combine(directory.FullName, $"Voices{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt");
+            File.WriteAllText(logPath, JsonConvert.SerializeObject(Response, Formatting.Indented));
         }
 
         public Task VoiceToText(string path)
@@ -284,20 +289,21 @@ namespace Speech_To_Text
                 text += Environment.NewLine;
 
                 InputText(text);
+                Response[path] = speech.Text;
             });
         }
 
-        public void BackgroundProcess()
-        {
-            while (IsRecording || waitFiles.Count > 0)
-            {
-                if (waitFiles.Count > 0)
-                {
-                    var next = waitFiles[0];
-                    waitFiles.RemoveAt(0);
-                    VoiceToText(next).Wait();
-                }
-            }
-        }
+        //public void BackgroundProcess()
+        //{
+        //    while (IsRecording || waitFiles.Count > 0)
+        //    {
+        //        if (waitFiles.Count > 0)
+        //        {
+        //            var next = waitFiles[0];
+        //            waitFiles.RemoveAt(0);
+        //            VoiceToText(next).Wait();
+        //        }
+        //    }
+        //}
     }
 }

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AssemblyVersion>1.0.0.37</AssemblyVersion>
-    <FileVersion>1.0.0.37</FileVersion>
+    <AssemblyVersion>1.0.0.38</AssemblyVersion>
+    <FileVersion>1.0.0.38</FileVersion>
     <Authors>HaLi</Authors>
   </PropertyGroup>
 

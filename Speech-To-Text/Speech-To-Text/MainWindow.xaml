@@ -37,6 +37,16 @@
                             <cmd:VoiceDisable/>
                         </MenuItem.Command>
                     </MenuItem>
+                    <MenuItem Header="Records">
+                        <MenuItem.Command>
+                            <cmd:ViewRecs/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem Header="Voices Folder">
+                        <MenuItem.Command>
+                            <cmd:VoiceFolder/>
+                        </MenuItem.Command>
+                    </MenuItem>
 
                     <Separator/>
                     <MenuItem Header="Setting">
