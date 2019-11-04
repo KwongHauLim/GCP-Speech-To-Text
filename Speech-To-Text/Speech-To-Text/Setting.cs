@@ -11,6 +11,7 @@ namespace Speech_To_Text
 
         public double MinLength { get; set; } = 0.0;
         public double MaxLength { get; set; } = 60.0;
+        public double ClipLength { get; set; } = 5.0;
 
         public bool KeepWavFile { get; set; } = true;
         public bool DeleteWhenExit { get; set; } = true;

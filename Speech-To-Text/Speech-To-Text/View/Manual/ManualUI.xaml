@@ -7,25 +7,44 @@
         mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Focusable="False"
         AllowsTransparency="True" Opacity="0.7" Width="100" Height="100">
     <Grid x:Name="uiPanel" Height="100" Width="100">
-        <Canvas Width="{Binding ActualWidth, ElementName=uiPanel}" Height="{Binding ActualHeight, ElementName=uiPanel}">
-            <Ellipse
-                Width="60"
-                Height="60"
-                Stroke="#FF84BFE6"
-                StrokeThickness="4"
-                Canvas.Left="20"
-                Canvas.Top="20" RenderTransformOrigin="0.5,0.5" >
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform x:Name="visScale"/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
-        </Canvas>
         <Image x:Name="uiMove" Source="/Resources/Images/Move.png" Stretch="Uniform" Margin="0,4,4,0" 
                Cursor="SizeAll" MouseDown="uiMove_MouseDown"
                Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <Image x:Name="uiMic" Cursor="Hand" MouseLeftButtonDown="uiMic_MouseLeftButtonDown" MouseLeftButtonUp="uiMic_MouseLeftButtonUp"
-               Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="20" Focusable="False"/>
+        <Button x:Name="btnMic" Click="btnMic_Click"
+                Width="60"
+                Height="60" Foreground="Transparent" Background="Transparent" BorderBrush="White" BorderThickness="0">
+            <Grid>
+                <Canvas Width="{Binding ActualWidth, ElementName=uiPanel}" Height="{Binding ActualHeight, ElementName=uiPanel}">
+                    <Ellipse
+                        Width="60"
+                        Height="60"
+                        Stroke="#FF84BFE6"
+                        StrokeThickness="4"
+                        Canvas.Left="0"
+                        Canvas.Top="0" RenderTransformOrigin="0.5,0.5" >    
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="visScale"/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse
+                        Width="8"
+                        Height="8"
+                        Stroke="Red"
+                        StrokeThickness="4"
+                        Canvas.Left="6"
+                        Canvas.Top="6" RenderTransformOrigin="0.5,0.5" >
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="visRecord"/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                </Canvas>
+                <Image x:Name="uiMic" Cursor="Hand" MouseLeftButtonDown="uiMic_MouseLeftButtonDown"
+               Source="/Speech-To-Text;component/Resources/Images/Mic-enable.png" Margin="0" Focusable="False"/>
+            </Grid>
+        </Button>
     </Grid>
 </Window>

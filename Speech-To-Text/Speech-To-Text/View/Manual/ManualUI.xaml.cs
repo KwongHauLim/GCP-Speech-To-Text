@@ -35,11 +35,13 @@ namespace Speech_To_Text.View.Manual
         /// </summary>
         public double VisualScale
         {
-            get { return visScale.ScaleX; }
-            set { visScale.ScaleX = visScale.ScaleY = value; }
+            get { return visRecord.ScaleX; }
+            set { visRecord.ScaleX = visRecord.ScaleY = value; }
         }
 
         private DispatcherTimer timer;
+
+        private bool steamTyping = false;
 
         public ManualUI()
         {
@@ -54,10 +56,13 @@ namespace Speech_To_Text.View.Manual
         {
             if (IsPressed)
             {
-                VisualScale = Lerp(1.0, 1.5, Microphone.Volume);
+                VisualScale = Lerp(1.0, 3.0, Microphone.Volume);
             }
             else if (VisualScale.CompareTo(1.0) != 0)
-                VisualScale = 1.0;
+                VisualScale = 0.0;
+
+            //if (steamTyping && voice != null)
+            //    Control.InputText(voice.Speech.StreamingText);
 
             double Lerp(double a, double b, float t) => a * (1 - t) + b * t;
         }
@@ -72,26 +77,33 @@ namespace Speech_To_Text.View.Manual
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                IsPressed = true;
-                timer.Start();
-
-                voice = new VoiceClip();
-                voice.StartVoice(RecordMode.File);
             }
         }
 
-        private void uiMic_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void btnMic_Click(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Released && IsPressed)
+            if (!IsPressed)
+            {
+                IsPressed = true;
+                timer.Start();
+                Control.Share.StartVoice();
+
+                //var mode = Control.Share.Setting.Speech.Mode;
+                //voice = new VoiceClip();
+                //voice.StartVoice(mode, Control.Share.Language);
+                //steamTyping = mode == RecordMode.Stream; 
+            }
+            else
             {
                 IsPressed = false;
-                var result = voice.StopVoice();
+                //var result = voice.StopVoice();
                 timer.Stop();
+                Control.Share.StopVoice();
 
-                if (result != null && !string.IsNullOrWhiteSpace(result.Text))
-                {
-                    Control.InputText(result.Text);
-                }
+                //if (result != null && !string.IsNullOrWhiteSpace(result.Text))
+                //{
+                //    Control.InputText(result.Text);
+                //}
             }
         }
     }

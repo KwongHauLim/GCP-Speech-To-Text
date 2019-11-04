@@ -55,9 +55,9 @@ namespace Speech_To_Text.View.Setting
             set
             {
                 sensitive = value;
-                btnSenHigh.Background = value == SensitiveMode.High ? Brushes.PaleGreen : Brushes.White;
-                btnSenLow.Background = value == SensitiveMode.Low ? Brushes.PaleGreen : Brushes.White;
-                btnSenMan.Background = value == SensitiveMode.Manual ? Brushes.PaleGreen : Brushes.White;
+                //btnSenHigh.Background = value == SensitiveMode.High ? Brushes.PaleGreen : Brushes.White;
+                //btnSenLow.Background = value == SensitiveMode.Low ? Brushes.PaleGreen : Brushes.White;
+                //btnSenMan.Background = value == SensitiveMode.Manual ? Brushes.PaleGreen : Brushes.White;
             }
         }
 

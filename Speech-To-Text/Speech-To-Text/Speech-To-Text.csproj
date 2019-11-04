@@ -5,8 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.151</AssemblyVersion>
-    <FileVersion>1.0.0.151</FileVersion>
+    <AssemblyVersion>1.0.0.193</AssemblyVersion>
+    <FileVersion>1.0.0.193</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon />
   </PropertyGroup>
@@ -40,23 +40,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.8.3" />
     <PackageReference Include="Google.Apis.Core" Version="1.41.1" />
     <PackageReference Include="Google.Cloud.Language.V1" Version="1.3.0" />
     <PackageReference Include="Google.Cloud.Speech.V1" Version="1.2.0" />
-    <PackageReference Include="InputSimulator" Version="1.0.4" />
+    <PackageReference Include="InputSimulatorStandard" Version="1.0.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
-    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.1" />
     <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="HaLi.AudioInput">
-      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.AudioInput.dll</HintPath>
-    </Reference>
-    <Reference Include="HaLi.GoogleSpeech">
-      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.GoogleSpeech.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\HaLi.GoogleSpeech\HaLi.AudioInput\HaLi.AudioInput.csproj" />
+    <ProjectReference Include="..\..\HaLi.GoogleSpeech\HaLi.GoogleSpeech\HaLi.GoogleSpeech.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="HaLi.Tools.Encryption">
       <HintPath>..\..\Libs\netcoreapp3.0\HaLi.Tools.Encryption.dll</HintPath>
     </Reference>

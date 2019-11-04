@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Interop;
 using HaLi.AudioInput;
+using HaLi.GoogleSpeech;
 using HaLi.Tools.Encryption;
+using InputSimulatorStandard;
 using Newtonsoft.Json;
 using Speech_To_Text.View.Manual;
-using WindowsInput;
 using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text
@@ -30,12 +32,21 @@ namespace Speech_To_Text
 
         private readonly string path = "Setting.json";
         public Setting Setting { get; set; }
-        public Dictionary<string,string> LanguageCodes { get; private set; }
+        public Dictionary<string, string> LanguageCodes { get; private set; }
+        public string Language { get; set; }
 
         public ManualUI Manual { get; private set; }
 
+        public bool IsRecording { get; set; } = false;
         public InputSimulator Input { get; private set; }
-        public static void InputText(string str) => Share.Input.Keyboard.TextEntry(str);
+        public static void InputText(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+                Share.Input.Keyboard.TextEntry(str);
+        }
+
+        private DirectoryInfo directory;
+        public List<string> waitFiles = new List<string>();
 
         private Control()
         {
@@ -173,7 +184,7 @@ namespace Speech_To_Text
                     json = Crypto.Decrypt(json);
                     Setting = JsonConvert.DeserializeObject<Setting>(json);
                 }
-                catch 
+                catch
                 {
                     Setting = null;
                 }
@@ -182,6 +193,9 @@ namespace Speech_To_Text
             if (Setting == null)
                 Setting = new Setting();
 
+            Language = Setting.DefaultLanguage;
+            directory = new DirectoryInfo("Voices");
+            directory.Create();
 
             Input = new InputSimulator();
         }
@@ -194,7 +208,7 @@ namespace Speech_To_Text
                 json = Crypto.Encrypt(json);
                 File.WriteAllText(path, json);
             }
-            catch 
+            catch
             {
             }
         }
@@ -205,14 +219,15 @@ namespace Speech_To_Text
             {
                 var desktop = System.Windows.SystemParameters.WorkArea;
                 Manual = new ManualUI();
-                Manual.SourceInitialized += (s, e) => {
+                Manual.SourceInitialized += (s, e) =>
+                {
                     var interopHelper = new WindowInteropHelper(Manual);
                     int exStyle = GetWindowLong(interopHelper.Handle, GWL_EXSTYLE);
                     SetWindowLong(interopHelper.Handle, GWL_EXSTYLE, exStyle | WS_EX_NOACTIVATE);
                 };
                 Manual.Show();
                 Manual.Left = desktop.Width - Manual.Width;
-                Manual.Top = desktop.Bottom - Manual.Height; 
+                Manual.Top = desktop.Bottom - Manual.Height;
             }
         }
 
@@ -222,6 +237,66 @@ namespace Speech_To_Text
             {
                 Manual.Close();
                 Manual = null;
+            }
+        }
+
+        public void StartVoice()
+        {
+            IsRecording = true;
+
+            Task.Run(async () =>
+            {
+                Microphone.StartRecording();
+                IsRecording = true;
+                while (IsRecording)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(Setting.ClipLength));
+                    var file = Path.Combine(directory.FullName, $"Voice{DateTime.Now.ToString("yyyyMMddHHmmss")}.wav");
+                    Microphone.WriteToFile(file);
+                    Microphone.Share.ChangeFile();
+                    waitFiles.Add(file);
+                    //File.AppendAllText("Debug.log", file + Environment.NewLine);
+                    VoiceToText(file);
+                }
+                Microphone.StopRecording();
+            });
+
+            //Task.Run (BackgroundProcess);
+        }
+
+        public void StopVoice()
+        {
+            IsRecording = false;
+        }
+
+        public Task VoiceToText(string path)
+        {
+            return Task.Run(async () =>
+            {
+                //File.AppendAllText("Debug.log", $"[Request] {DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                var speech = await SpeechTask.FromFile(path, Language);
+                //File.AppendAllText("Debug.log", $"[Response] {DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                //File.AppendAllText("Debug.log", path + Environment.NewLine);
+                //File.AppendAllText("Debug.log", speech.Text + Environment.NewLine);
+                var text = string.Empty;
+                if (!string.IsNullOrEmpty(speech.Text))
+                    text = speech.Text;
+                text += Environment.NewLine;
+
+                InputText(text);
+            });
+        }
+
+        public void BackgroundProcess()
+        {
+            while (IsRecording || waitFiles.Count > 0)
+            {
+                if (waitFiles.Count > 0)
+                {
+                    var next = waitFiles[0];
+                    waitFiles.RemoveAt(0);
+                    VoiceToText(next).Wait();
+                }
             }
         }
     }

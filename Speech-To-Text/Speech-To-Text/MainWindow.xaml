@@ -14,11 +14,25 @@
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Enable">
+                        <MenuItem.Icon>
+                            <Image x:Name="noticEnable"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                        </MenuItem.Icon>
                         <MenuItem.Command>
                             <cmd:VoiceEnable/>
                         </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Disable">
+                        <MenuItem.Icon>
+                            <Image x:Name="noticDisable"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                        </MenuItem.Icon>
                         <MenuItem.Command>
                             <cmd:VoiceDisable/>
                         </MenuItem.Command>
@@ -29,6 +43,80 @@
                         <MenuItem.Command>
                             <cmd:SettingOpen/>
                         </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem Header="Mode">
+                        <MenuItem Header="File">
+                            <MenuItem.Icon>
+                                <Image x:Name="noticModeFile"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                            </MenuItem.Icon>
+                            <MenuItem.Command>
+                                <cmd:ModeFile/>
+                            </MenuItem.Command>
+                        </MenuItem>
+                        <MenuItem Header="Stream">
+                            <MenuItem.Icon>
+                                <Image x:Name="noticModeStream"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                            </MenuItem.Icon>
+                            <MenuItem.Command>
+                                <cmd:ModeStream/>
+                            </MenuItem.Command>
+                        </MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Header="Language">
+                        <MenuItem Header="English">
+                            <MenuItem.Icon>
+                                <Image x:Name="notiLangEng"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                            </MenuItem.Icon>
+                            <MenuItem.Command>
+                                <cmd:GoogleLanguage/>
+                            </MenuItem.Command>
+                            <MenuItem.CommandParameter>
+                                en
+                            </MenuItem.CommandParameter>
+                        </MenuItem>
+                        <MenuItem Header="普通話">
+                            <MenuItem.Icon>
+                                <Image x:Name="notiLangZh"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                            </MenuItem.Icon>
+                            <MenuItem.Command>
+                                <cmd:GoogleLanguage/>
+                            </MenuItem.Command>
+                            <MenuItem.CommandParameter>
+                                zh
+                            </MenuItem.CommandParameter>
+                        </MenuItem>
+                        <MenuItem Header="粵語">
+                            <MenuItem.Icon>
+                                <Image x:Name="notiLangYue"
+                                       Visibility="Hidden"
+                                       Width="16"               
+                                       Height="16"
+                                       Source="Resources/Images/tick.png" />
+                            </MenuItem.Icon>
+                            <MenuItem.Command>
+                                <cmd:GoogleLanguage/>
+                            </MenuItem.Command>
+                            <MenuItem.CommandParameter>
+                                yue-Hant-HK
+                            </MenuItem.CommandParameter>
+                        </MenuItem>
                     </MenuItem>
 
                     <Separator/>

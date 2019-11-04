@@ -11,10 +11,10 @@ namespace Speech_To_Text
         public Task<SpeechData> Task { get; private set; }
         public SpeechData Result { get; private set; }
 
-        public void StartVoice(RecordMode mode)
+        public void StartVoice(RecordMode mode, string lang)
         {
             Speech = new SpeechTask();
-            Speech.Language = "en";
+            Speech.Language = lang;
             Speech.KeepWavFile = $@"R:\Voice{DateTime.Now.ToString("mmss")}.wav";
 
             var setting = Control.Share.Setting;
@@ -32,9 +32,14 @@ namespace Speech_To_Text
             if (Speech != null && Task != null)
             {
                 Speech.StopRecording();
-                Result = Task.Result;
+                try
+                {
+                    Result = Task.Result;
+                    return Result;
+                }
+                catch { }
             }
-            return Result;
+            return null;
         }
     }
 }

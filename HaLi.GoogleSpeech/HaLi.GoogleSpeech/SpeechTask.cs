@@ -16,10 +16,29 @@ namespace HaLi.GoogleSpeech
         public string Language { get; set; } = "en";
         public string KeepWavFile { get; set; } = string.Empty;
 
+        private object locker = new object();
+        private StringBuilder sb;
+        public string StreamingText
+        {
+            get
+            {
+                string text = string.Empty;
+                lock (locker)
+                {
+                    if (sb != null && sb.Length > 0)
+                    {
+                        text = sb.ToString();
+                        sb.Length = 0; 
+                    }
+                }
+                return text;
+            }
+        }
+
         /// <summary>
         /// 完整音檔, 發到Google轉文字
         /// </summary>
-        public Task<SpeechData> FromFile(string path)
+        public static Task<SpeechData> FromFile(string path, string Language)
         {
             return Task.Run(() =>
             {
@@ -63,7 +82,7 @@ namespace HaLi.GoogleSpeech
                     Thread.Sleep(1);
                 }
 
-                if (Microphone.Length.CompareTo(minimum) < 0) 
+                if (Microphone.Length.CompareTo(minimum) < 0)
                     return null;
 
                 var path = KeepWavFile;
@@ -73,7 +92,7 @@ namespace HaLi.GoogleSpeech
                 Microphone.WriteToFile(path);
                 path = Path.ChangeExtension(path, ".wav");
 
-                return FromFile(path);
+                return FromFile(path, Language);
             });
         }
 
@@ -119,7 +138,7 @@ namespace HaLi.GoogleSpeech
 
                 var speechAnaysis = Task.Run<string>(async () =>
                 {
-                    var sb = new StringBuilder();
+                    sb = new StringBuilder();
 
                     try
                     {
@@ -131,7 +150,10 @@ namespace HaLi.GoogleSpeech
                                 {
                                     foreach (var alternative in result.Alternatives)
                                     {
-                                        sb.Append(alternative.Transcript);
+                                        lock (locker)
+                                        {
+                                            sb.Append(alternative.Transcript);
+                                        }
                                     }
                                 }
                             }
