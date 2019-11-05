@@ -5,18 +5,28 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Speech_To_Text</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.0.0.223</AssemblyVersion>
-    <FileVersion>1.0.0.223</FileVersion>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <AssemblyVersion>1.0.0.254</AssemblyVersion>
+    <FileVersion>1.0.0.254</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
-    <ApplicationIcon />
+    <ApplicationIcon>Resources\Mic-enable.ico</ApplicationIcon>
+    <Authors>HaLi.Kwong</Authors>
+    <Company>Antelope</Company>
+    <Product>Voice-To-Text</Product>
+    <PackageId>Voice-To-Text</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;0067</NoWarn>
+    <NoWarn>1701;1702;0067;4014</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;0067</NoWarn>
+    <NoWarn>1701;1702;0067;4014</NoWarn>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,9 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="HaLi.Tools.Encryption">
-      <HintPath>..\..\Libs\netcoreapp3.0\HaLi.Tools.Encryption.dll</HintPath>
-    </Reference>
     <Reference Include="NotifyIconWpf">
       <HintPath>..\..\Libs\netcoreapp3.0\NotifyIconWpf.dll</HintPath>
     </Reference>

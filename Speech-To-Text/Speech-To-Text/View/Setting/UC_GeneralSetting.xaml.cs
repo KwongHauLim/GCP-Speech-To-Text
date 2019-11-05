@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,9 +25,12 @@ namespace Speech_To_Text.View.Setting
         {
             InitializeComponent();
 
-            CodeList.AddRange(Control.Share.LanguageCodes.Keys);
-            uiLanguage.ItemsSource = Control.Share.LanguageCodes.Values;
-            uiLanguage.SelectedIndex = 0;
+            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
+            {
+                CodeList.AddRange(Control.Share.LanguageCodes.Keys);
+                uiLanguage.ItemsSource = Control.Share.LanguageCodes.Values;
+                uiLanguage.SelectedIndex = 0; 
+            }
         }
 
         public void SetLanguageCode(string defaultLanguage)

@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /GoogleCredential.json
 /Libs/netcoreapp3.0
+*.aip

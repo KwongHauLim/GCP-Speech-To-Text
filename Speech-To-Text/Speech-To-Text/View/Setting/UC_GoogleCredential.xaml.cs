@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
@@ -36,15 +29,15 @@ namespace Speech_To_Text.View.Setting
             {
                 if (uiModeFile.IsChecked.GetValueOrDefault(true))
                     return RecordMode.File;
-                else if (uiModeStream.IsChecked.GetValueOrDefault(true))
-                    return RecordMode.Stream;
+                //else if (uiModeStream.IsChecked.GetValueOrDefault(true))
+                //    return RecordMode.Stream;
                 else
                     return RecordMode.None;
             }
             set
             {
                 uiModeFile.IsChecked = value == RecordMode.File;
-                uiModeStream.IsChecked = value == RecordMode.Stream;
+                //uiModeStream.IsChecked = value == RecordMode.Stream;
             }
         }
 
@@ -55,9 +48,6 @@ namespace Speech_To_Text.View.Setting
             set
             {
                 sensitive = value;
-                //btnSenHigh.Background = value == SensitiveMode.High ? Brushes.PaleGreen : Brushes.White;
-                //btnSenLow.Background = value == SensitiveMode.Low ? Brushes.PaleGreen : Brushes.White;
-                //btnSenMan.Background = value == SensitiveMode.Manual ? Brushes.PaleGreen : Brushes.White;
             }
         }
 
@@ -72,12 +62,23 @@ namespace Speech_To_Text.View.Setting
 
             if (dialog.ShowDialog().GetValueOrDefault(false))
             {
-                uiJson.Text = dialog.FileName;
-                ValidateJson(dialog.FileName);
+                if (ValidateJson(dialog.FileName))
+                {
+                    var here = new FileInfo(typeof(MainWindow).Assembly.Location);
+                    var folder = here.Directory;
+                    var path = Path.Combine(folder.FullName, "GoogleCredential.json");
+                    if (File.Exists(path))
+                        File.Delete(path);
+                    File.Copy(dialog.FileName, path); // 複製入Program 相同folder
+                    uiJson.Text = Path.GetRelativePath(folder.FullName, path);
+                }
             }
         }
 
-        public void ValidateJson(string path)
+        /// <summary>
+        /// 簡單檢查
+        /// </summary>
+        public bool ValidateJson(string path)
         {
             bool valid = false;
             try
@@ -91,24 +92,26 @@ namespace Speech_To_Text.View.Setting
                 valid = false;
             }
 
+            uiJson.Text = path;
+
             if (valid != isValid)
                 uiValid.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/" + (valid ? "tick.png" : "cross.png")));
-            isValid = valid;
+            return isValid = valid;
         }
 
-        private void btnSenHigh_Click(object sender, RoutedEventArgs e)
-        {
-            Senitive = SensitiveMode.High;
-        }
+        //private void btnSenHigh_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Senitive = SensitiveMode.High;
+        //}
 
-        private void btnSenLow_Click(object sender, RoutedEventArgs e)
-        {
-            Senitive = SensitiveMode.Low;
-        }
+        //private void btnSenLow_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Senitive = SensitiveMode.Low;
+        //}
 
-        private void btnSenMan_Click(object sender, RoutedEventArgs e)
-        {
-            Senitive = SensitiveMode.Manual;
-        }
+        //private void btnSenMan_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Senitive = SensitiveMode.Manual;
+        //}
     }
 }

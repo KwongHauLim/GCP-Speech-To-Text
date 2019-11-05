@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Speech_To_Text.View.Setting"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ShowInTaskbar="False"
         Title="Setting" Height="450" Width="400" Icon="/Speech-To-Text;component/Resources/Images/Home.png"
         Closing="Window_Closing">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="uiTabs">
             <TabItem Header="General">
                 <Grid Margin="5">
                     <local:UC_GeneralSetting x:Name="ucGeneral"/>

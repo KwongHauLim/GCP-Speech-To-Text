@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Interop;
 using HaLi.AudioInput;
 using HaLi.GoogleSpeech;
-using HaLi.Tools.Encryption;
 using InputSimulatorStandard;
 using Newtonsoft.Json;
 using Speech_To_Text.View.Manual;
@@ -182,7 +181,7 @@ namespace Speech_To_Text
                 try
                 {
                     var json = File.ReadAllText(path);
-                    json = Crypto.Decrypt(json);
+                    //json = Crypto.Decrypt(json);
                     Setting = JsonConvert.DeserializeObject<Setting>(json);
                 }
                 catch
@@ -206,7 +205,7 @@ namespace Speech_To_Text
             try
             {
                 var json = JsonConvert.SerializeObject(Setting);
-                json = Crypto.Encrypt(json);
+                //json = Crypto.Encrypt(json);
                 File.WriteAllText(path, json);
             }
             catch
@@ -256,54 +255,71 @@ namespace Speech_To_Text
                     var file = Path.Combine(directory.FullName, $"Voice{DateTime.Now.ToString("yyyyMMddHHmmss")}.wav");
                     Microphone.WriteToFile(file);
                     Microphone.Share.ChangeFile();
-                    waitFiles.Add(file);
-                    //File.AppendAllText("Debug.log", file + Environment.NewLine);
+
+                    // 語音傳文字
                     VoiceToText(file);
                 }
                 Microphone.StopRecording();
             });
 
-            //Task.Run (BackgroundProcess);
+
+            Balloon("Start voice recording...");
         }
 
+        /// <summary>
+        /// 停止錄音
+        /// </summary>
         public void StopVoice()
         {
             IsRecording = false;
 
             var logPath = Path.Combine(directory.FullName, $"Voices{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt");
             File.WriteAllText(logPath, JsonConvert.SerializeObject(Response, Formatting.Indented));
+
+            Balloon("Voice recording Stopped.");
         }
 
+        /// <summary>
+        /// 語音傳文字
+        /// </summary>
         public Task VoiceToText(string path)
         {
             return Task.Run(async () =>
             {
-                //File.AppendAllText("Debug.log", $"[Request] {DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                // 傳送音頻檔至Google
+                WriteLog($"VoiceToText:{path}");
                 var speech = await SpeechTask.FromFile(path, Language);
-                //File.AppendAllText("Debug.log", $"[Response] {DateTime.Now.ToString("yyyyMMddHHmmss")}");
-                //File.AppendAllText("Debug.log", path + Environment.NewLine);
-                //File.AppendAllText("Debug.log", speech.Text + Environment.NewLine);
                 var text = string.Empty;
                 if (!string.IsNullOrEmpty(speech.Text))
+                {
                     text = speech.Text;
-                text += Environment.NewLine;
+                    text += Environment.NewLine;
 
-                InputText(text);
+                    // 模擬打字
+                    InputText(text);
+                }
                 Response[path] = speech.Text;
+                Balloon($"Google say: {speech.Text}");
             });
         }
 
-        //public void BackgroundProcess()
-        //{
-        //    while (IsRecording || waitFiles.Count > 0)
-        //    {
-        //        if (waitFiles.Count > 0)
-        //        {
-        //            var next = waitFiles[0];
-        //            waitFiles.RemoveAt(0);
-        //            VoiceToText(next).Wait();
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// Taskbar icon 彈出氣泡
+        /// </summary>
+        public void Balloon(string msg)
+        {
+            WriteLog(msg);
+            var notify = MainWindow.Share.GetNotify;
+            notify.ShowBalloonTip("Voice to Text", msg, notify.Icon);
+        }
+
+        public static void WriteLog(string msg)
+        {
+#if DEBUG
+            File.AppendAllText(
+                $"Debug{DateTime.Now.ToString("yyyyMMdd")}.log",
+                $"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] {msg}{Environment.NewLine}"); 
+#endif
+        }
     }
 }

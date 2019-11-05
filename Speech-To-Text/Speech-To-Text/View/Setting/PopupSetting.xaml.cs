@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,21 +20,38 @@ namespace Speech_To_Text.View.Setting
     {
         public PopupSetting()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            var ctrl = Control.Share;
-            var setting = ctrl.Setting;
-            ucGeneral.uiStartEnable.IsChecked = setting.EnableWhenStart;
-            ucGeneral.SetLanguageCode(setting.DefaultLanguage);
-            //ucGeneral.uiFilterBelow.Value = setting.MinLength;
-            //ucGeneral.uiMaxLength.Value = setting.MaxLength;
-            ucGeneral.uiClipLength.Text = setting.ClipLength.ToString("0");
-            ucGeneral.uiKeepWav.IsChecked = setting.KeepWavFile;
-            ucGeneral.uiDelLeave.IsChecked = setting.DeleteWhenExit;
-            ucGoogle.uiJson.Text = setting.Speech.Credential;
-            ucGoogle.Mode = setting.Speech.Mode;
-            ucGoogle.Senitive = setting.Speech.Sensitive;
-            ucGoogle.ValidateJson(ucGoogle.uiJson.Text);
+                if (LicenseManager.UsageMode != LicenseUsageMode.Runtime)
+                    return;
+
+                var ctrl = Control.Share;
+                var setting = ctrl.Setting;
+                ucGeneral.uiStartEnable.IsChecked = setting.EnableWhenStart;
+                ucGeneral.SetLanguageCode(setting.DefaultLanguage);
+                //ucGeneral.uiFilterBelow.Value = setting.MinLength;
+                //ucGeneral.uiMaxLength.Value = setting.MaxLength;
+                ucGeneral.uiClipLength.Text = setting.ClipLength.ToString("0");
+                ucGeneral.uiKeepWav.IsChecked = setting.KeepWavFile;
+                ucGeneral.uiDelLeave.IsChecked = setting.DeleteWhenExit;
+                ucGoogle.uiJson.Text = setting.Speech.Credential;
+                ucGoogle.Mode = setting.Speech.Mode;
+                ucGoogle.Senitive = setting.Speech.Sensitive;
+                ucGoogle.ValidateJson(ucGoogle.uiJson.Text);
+
+                if (string.IsNullOrWhiteSpace(setting.Speech.Credential))
+                {
+                    uiTabs.SelectedIndex = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Control.WriteLog(ex.Message);
+                Control.WriteLog(ex.StackTrace);
+                throw ex;
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -7,6 +7,7 @@ using HaLi.GoogleSpeech;
 using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
 using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 using Hardcodet.Wpf.TaskbarNotification;
+using Speech_To_Text.View.Setting;
 
 namespace Speech_To_Text
 {
@@ -15,22 +16,38 @@ namespace Speech_To_Text
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Share => (MainWindow)App.Current.MainWindow;
         public TaskbarIcon GetNotify => NotifyIcon;
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            var ctrl = Control.Share;
-            var setting = ctrl.Setting;
-            if (setting.EnableWhenStart)
+            try
             {
-                ctrl.ManualOpen();
-            }
+                Control.WriteLog("App Start");
+                InitializeComponent();
 
-            SetMode(setting.Speech.Mode);
-            SetLang(ctrl.Language);
-            SetActive(setting.EnableWhenStart);
+                var ctrl = Control.Share;
+                var setting = ctrl.Setting;
+                if (string.IsNullOrWhiteSpace(setting.Speech.Credential))
+                {
+                    var popup = new PopupSetting();
+                    popup.Show();
+                }
+                else if (setting.EnableWhenStart)
+                {
+                    ctrl.ManualOpen();
+                }
+
+                SetMode(setting.Speech.Mode);
+                SetLang(ctrl.Language);
+                SetActive(setting.EnableWhenStart);
+            }
+            catch (Exception ex)
+            {
+                Control.WriteLog(ex.Message);
+                Control.WriteLog(ex.StackTrace);
+                throw ex;
+            }
         }
 
         internal void SetActive(bool enable)
@@ -64,44 +81,6 @@ namespace Speech_To_Text
             if (mode == RecordMode.Stream)
                 noticModeStream.Visibility = Visibility.Visible;
         }
-
-        //private void btnTest_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Task.Run(() => Speech(3000, "en"));
-        //}
-
-        //private void btnOpen_Click(object sender, RoutedEventArgs e)
-        //{
-        //}
-
-        //private string FileDialog()
-        //{
-        //    var dialog = new OpenFileDialog
-        //    {
-        //        Filter = "Wave File|*.wav"
-        //    };
-
-        //    string output = string.Empty;
-        //    if (dialog.ShowDialog().GetValueOrDefault(false))
-        //    {
-        //        output = dialog.FileName;
-        //    }
-
-        //    return output;
-        //}
-
-        //private async Task Speech(int length, string language)
-        //{
-        //    var task = new SpeechTask
-        //    {
-        //        Language = language,
-        //        KeepWavFile = $@"R:\Voice{DateTime.Now.ToString("mmss")}.wav",
-        //    };
-
-        //    var data = await task.StartRecord(length);
-
-        //    Console.WriteLine(data.Text);
-        //}
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

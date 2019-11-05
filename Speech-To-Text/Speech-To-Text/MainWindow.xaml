@@ -42,11 +42,11 @@
                             <cmd:ViewRecs/>
                         </MenuItem.Command>
                     </MenuItem>
-                    <MenuItem Header="Voices Folder">
+                    <!--<MenuItem Header="Voices Folder">
                         <MenuItem.Command>
                             <cmd:VoiceFolder/>
                         </MenuItem.Command>
-                    </MenuItem>
+                    </MenuItem>-->
 
                     <Separator/>
                     <MenuItem Header="Setting">

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Speech_To_Text.View.Records
 {
@@ -20,6 +21,9 @@ namespace Speech_To_Text.View.Records
         public ViewRecords()
         {
             InitializeComponent();
+
+            if (LicenseManager.UsageMode != LicenseUsageMode.Runtime)
+                return;
 
             var here = new FileInfo(typeof(MainWindow).Assembly.Location);
             DirectoryInfo dir = here.Directory.GetDirectories("Voices")[0];
