@@ -5,6 +5,7 @@ using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
 
 namespace Speech_To_Text
 {
+    // not in use
     public class VoiceClip
     {
         public SpeechTask Speech { get; private set; }

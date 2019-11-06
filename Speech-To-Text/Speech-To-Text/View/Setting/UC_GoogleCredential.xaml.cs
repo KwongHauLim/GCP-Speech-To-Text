@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using RecordMode = Speech_To_Text.Setting.GoogleSpeech.RecordMode;
-using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
+//using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text.View.Setting
 {
@@ -41,15 +41,15 @@ namespace Speech_To_Text.View.Setting
             }
         }
 
-        private SensitiveMode sensitive = SensitiveMode.High;
-        public SensitiveMode Senitive
-        {
-            get => sensitive;
-            set
-            {
-                sensitive = value;
-            }
-        }
+        //private SensitiveMode sensitive = SensitiveMode.High;
+        //public SensitiveMode Senitive
+        //{
+        //    get => sensitive;
+        //    set
+        //    {
+        //        sensitive = value;
+        //    }
+        //}
 
         private void btnJson_Click(object sender, RoutedEventArgs e)
         {

@@ -10,7 +10,7 @@ using HaLi.GoogleSpeech;
 using InputSimulatorStandard;
 using Newtonsoft.Json;
 using Speech_To_Text.View.Manual;
-using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
+//using SensitiveMode = Speech_To_Text.Setting.GoogleSpeech.SensitiveMode;
 
 namespace Speech_To_Text
 {
@@ -44,7 +44,7 @@ namespace Speech_To_Text
                 Share.Input.Keyboard.TextEntry(str);
         }
 
-        private DirectoryInfo directory;
+        public DirectoryInfo directory;
         public List<string> waitFiles = new List<string>();
         public Dictionary<string, string> Response = new Dictionary<string, string>();
 
@@ -263,7 +263,7 @@ namespace Speech_To_Text
             });
 
 
-            Balloon("Start voice recording...");
+            MainWindow.Balloon("Start voice recording...");
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Speech_To_Text
             var logPath = Path.Combine(directory.FullName, $"Voices{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt");
             File.WriteAllText(logPath, JsonConvert.SerializeObject(Response, Formatting.Indented));
 
-            Balloon("Voice recording Stopped.");
+            MainWindow.Balloon("Voice recording Stopped.");
         }
 
         /// <summary>
@@ -286,31 +286,40 @@ namespace Speech_To_Text
         {
             return Task.Run(async () =>
             {
-                // 傳送音頻檔至Google
-                WriteLog($"VoiceToText:{path}");
-                var speech = await SpeechTask.FromFile(path, Language);
-                var text = string.Empty;
-                if (!string.IsNullOrEmpty(speech.Text))
+                try
                 {
-                    text = speech.Text;
-                    text += Environment.NewLine;
+                    // 傳送音頻檔至Google
+                    WriteLog($"VoiceToText:{path}");
+                    var speech = await SpeechTask.FromFile(path, Language);
+                    var text = string.Empty;
+                    if (!string.IsNullOrEmpty(speech.Text))
+                    {
+                        text = speech.Text;
+                        text += Environment.NewLine;
 
-                    // 模擬打字
-                    InputText(text);
+                        // 模擬打字
+                        InputText(text);
+                    }
+                    Response[path] = speech.Text;
+
+                    if (!Setting.KeepWavFile)
+                    {
+                        try
+                        {
+                            File.Delete(path);
+                        }
+                        catch { }
+                    }
+
+                    MainWindow.Balloon($"Google say: {speech.Text}");
                 }
-                Response[path] = speech.Text;
-                Balloon($"Google say: {speech.Text}");
+                catch (Exception ex)
+                {
+                    Control.WriteLog(ex.Message);
+                    Control.WriteLog(ex.StackTrace);
+                    //throw ex;
+                }
             });
-        }
-
-        /// <summary>
-        /// Taskbar icon 彈出氣泡
-        /// </summary>
-        public void Balloon(string msg)
-        {
-            WriteLog(msg);
-            var notify = MainWindow.Share.GetNotify;
-            notify.ShowBalloonTip("Voice to Text", msg, notify.Icon);
         }
 
         public static void WriteLog(string msg)

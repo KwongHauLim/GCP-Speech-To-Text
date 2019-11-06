@@ -78,16 +78,26 @@ namespace Speech_To_Text.View.Manual
         {
             if (!IsPressed)
             {
-                IsPressed = true;
-                timer.Start();
-                Control.Share.StartVoice();
+                StartVoice();
             }
             else
             {
-                IsPressed = false;
-                timer.Stop();
-                Control.Share.StopVoice();
+                StopVoice();
             }
+        }
+
+        public void StopVoice()
+        {
+            IsPressed = false;
+            timer.Stop();
+            Control.Share.StopVoice();
+        }
+
+        public void StartVoice()
+        {
+            IsPressed = true;
+            timer.Start();
+            Control.Share.StartVoice();
         }
     }
 }

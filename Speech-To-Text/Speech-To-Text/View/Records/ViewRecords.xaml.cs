@@ -64,5 +64,21 @@ namespace Speech_To_Text.View.Records
             //    }
             //}
         }
+
+        private void BtnClean_Click(object sender, RoutedEventArgs e)
+        {
+            var ctrl = Control.Share;
+            var files = ctrl.directory?.GetFiles() ?? new FileInfo[0];
+            for (int i = 0; i < files.Length; i++)
+            {
+                try
+                {
+                    files[i].Delete();
+                }
+                catch { }
+            }
+
+            this.Close();
+        }
     }
 }

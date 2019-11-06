@@ -8,14 +8,15 @@
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <AssemblyVersion>1.0.0.254</AssemblyVersion>
-    <FileVersion>1.0.0.254</FileVersion>
+    <AssemblyVersion>1.0.0.270</AssemblyVersion>
+    <FileVersion>1.0.0.270</FileVersion>
     <StartupObject>Speech_To_Text.App</StartupObject>
     <ApplicationIcon>Resources\Mic-enable.ico</ApplicationIcon>
     <Authors>HaLi.Kwong</Authors>
     <Company>Antelope</Company>
     <Product>Voice-To-Text</Product>
     <PackageId>Voice-To-Text</PackageId>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

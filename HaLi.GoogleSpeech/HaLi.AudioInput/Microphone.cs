@@ -151,6 +151,13 @@ namespace HaLi.AudioInput
                     Writer.Dispose();
                     Writer = null;
                 }
+
+                try
+                {
+                    File.Delete(tempFile); 
+                }
+                catch { }
+
                 Writer = new WaveFileWriter(tempFile, WaveIn.WaveFormat);
                 Length = 0; 
             }

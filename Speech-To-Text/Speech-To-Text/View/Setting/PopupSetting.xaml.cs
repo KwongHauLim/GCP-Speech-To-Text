@@ -38,7 +38,7 @@ namespace Speech_To_Text.View.Setting
                 ucGeneral.uiDelLeave.IsChecked = setting.DeleteWhenExit;
                 ucGoogle.uiJson.Text = setting.Speech.Credential;
                 ucGoogle.Mode = setting.Speech.Mode;
-                ucGoogle.Senitive = setting.Speech.Sensitive;
+                //ucGoogle.Senitive = setting.Speech.Sensitive;
                 ucGoogle.ValidateJson(ucGoogle.uiJson.Text);
 
                 if (string.IsNullOrWhiteSpace(setting.Speech.Credential))
@@ -63,12 +63,13 @@ namespace Speech_To_Text.View.Setting
             //setting.MinLength = ucGeneral.uiFilterBelow.Value.GetValueOrDefault(0.0);
             //setting.MaxLength = ucGeneral.uiMaxLength.Value.GetValueOrDefault(60.0);
             setting.ClipLength = double.Parse(ucGeneral.uiClipLength.Text);
-            setting.KeepWavFile = ucGeneral.uiKeepWav.IsChecked.GetValueOrDefault(true);
-            setting.DeleteWhenExit = ucGeneral.uiDelLeave.IsChecked.GetValueOrDefault(true);
+            setting.KeepWavFile = ucGeneral.uiKeepWav.IsChecked.GetValueOrDefault(false);
+            setting.DeleteWhenExit = ucGeneral.uiDelLeave.IsChecked.GetValueOrDefault(false);
             setting.Speech.Credential = ucGoogle.uiJson.Text;
             setting.Speech.Mode = ucGoogle.Mode;
-            setting.Speech.Sensitive = ucGoogle.Senitive;
+            //setting.Speech.Sensitive = ucGoogle.Senitive;
             ctrl.SaveSetting();
+            ctrl.Language = setting.DefaultLanguage;
         }
     }
 }
