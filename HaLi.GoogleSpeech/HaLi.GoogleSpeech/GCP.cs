@@ -20,7 +20,12 @@ namespace HaLi.GoogleSpeech
         
         private GCP()
         {
-            if (JsonFile.Exists)
+            Init();
+        }
+
+        public void Init()
+        {
+            if (Client == null && JsonFile.Exists)
             {
                 Credential = GoogleCredential.FromFile(JsonFile.FullName).CreateScoped(LanguageServiceClient.DefaultScopes);
                 Channel = new Channel(SpeechClient.DefaultEndpoint.Host, Credential.ToChannelCredentials());

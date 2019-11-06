@@ -44,6 +44,7 @@ namespace HaLi.GoogleSpeech
             {
                 var sb = new StringBuilder();
 
+                GCP.Share.Init();
                 var response = GCP.Share.Client.Recognize(new RecognitionConfig()
                 {
                     LanguageCode = Language,
@@ -103,6 +104,7 @@ namespace HaLi.GoogleSpeech
         {
             return Task.Run(() =>
             {
+                GCP.Share.Init();
                 var StreamingConfig = new StreamingRecognitionConfig()
                 {
                     Config = new RecognitionConfig()
